@@ -21,24 +21,23 @@ import Graphic from '@arcgis/core/Graphic';
         [longitude]="longitude"
       ></app-q2>
       <div id="mapViewDiv"></div>
-      <!-- ArcGIS Map container -->
     </div>
   `,
   styles: [
     `
       .map-container {
         display: flex;
-        height: 100vh; /* Full height of the viewport */
+        height: 100vh;
         width: 100%;
       }
 
       #mapViewDiv {
-        flex: 1; /* Map takes up remaining space */
+        flex: 1;
         height: 100%;
       }
 
       .form-container {
-        width: 300px; /* Fixed width for the form */
+        width: 300px;
         height: 100%;
         padding: 20px;
         position: absolute;
@@ -54,7 +53,6 @@ export class Q4Component implements AfterViewInit {
   latitude: number = 34.027;
   longitude: number = -118.805;
 
-  // Initialize map after the view is initialized
   ngAfterViewInit(): void {
     this.initializeMap();
   }
@@ -62,7 +60,7 @@ export class Q4Component implements AfterViewInit {
   // Function to initialize the map
   initializeMap(): void {
     const map = new Map({
-      basemap: 'streets-navigation-vector', // Use your preferred basemap
+      basemap: 'streets-navigation-vector',
     });
 
     const censusLayer = new MapImageLayer({
@@ -71,7 +69,7 @@ export class Q4Component implements AfterViewInit {
     map.add(censusLayer);
 
     this.mapView = new MapView({
-      container: 'mapViewDiv', // The ID of the div where the map will be displayed
+      container: 'mapViewDiv',
       map: map,
       center: [-98.35, 39.5],
       zoom: 5,
@@ -118,7 +116,6 @@ export class Q4Component implements AfterViewInit {
     this.identifyParams.geometry = clickedPoint;
     this.identifyParams.mapExtent = this.mapView.extent;
 
-    // Log the latitude and longitude of the clicked location
     console.log(
       `You clicked at: Latitude = ${latitude}, Longitude = ${longitude}`
     );
@@ -131,18 +128,16 @@ export class Q4Component implements AfterViewInit {
       .then((response) => {
         const result = response.results[0]; // Get the first result (state)
         if (result) {
-          // Create a Polygon graphic around the identified state
           const geometry = result.feature.geometry;
-          const polygon = geometry.clone(); // Clone the geometry to create a polygon
+          const polygon = geometry.clone();
 
-          // Create a graphic symbol for the polygon
           const polygonGraphic = new Graphic({
             geometry: polygon,
             symbol: {
-              type: 'simple-fill', // Simple fill symbol
-              color: [0, 0, 255, 0.3], // Semi-transparent blue
+              type: 'simple-fill',
+              color: [0, 0, 255, 0.3],
               outline: {
-                color: [0, 0, 255], // Blue outline
+                color: [0, 0, 255],
                 width: 1,
               },
             },
@@ -150,24 +145,35 @@ export class Q4Component implements AfterViewInit {
 
           this.mapView.graphics.add(polygonGraphic);
 
-          if (this.mapView.popup) {
-            console.log('Popup is available.');
-            console.log('Feature attributes:', result.feature.attributes);
-            this.mapView.popup.open({
-              location: clickedPoint, // Popup will appear at the clicked point
-              title: result.feature.attributes['STATE_NAME'], // State name
-              content: `
-                <b>Population (2007):</b> ${result.feature.attributes['POP2007']}<br>
-                <b>Area:</b> ${result.feature.attributes['Shape_Area']} square miles
-              `,
-            });
-          } else {
-            console.error('Popup is not available.');
-          }
+          result.feature.popupTemplate = {
+            title: `State: ${result.feature.attributes['STATE_NAME']}`,
+            content: `
+            <b>Population:</b> ${result.feature.attributes['POP2007']} <br>
+
+            <b>Area:</b> ${result.feature.attributes['Shape_Area']} square units
+          `,
+          };
+
+          this.showPopup([result.feature], clickedPoint);
         }
       })
       .catch((error) => {
         console.error('Error during Identify task:', error);
       });
+  }
+
+  // Method to show the popup
+  showPopup(response: any, eventMapPoint: any): void {
+    if (response.length > 0 && this.mapView.popup) {
+      this.mapView.popup.open({
+        features: response,
+        location: eventMapPoint, 
+      });
+    }
+
+    const viewDiv = document.getElementById('viewDiv');
+    if (viewDiv) {
+      viewDiv.style.cursor = 'auto'; 
+    }
   }
 }
