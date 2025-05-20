@@ -17,6 +17,7 @@ import { CustomPoint } from './custom-point.model';
             id="latitude"
             formControlName="latitude"
             class="form-control"
+            [value]="lattitude"
           />
         </div>
 
@@ -27,6 +28,7 @@ import { CustomPoint } from './custom-point.model';
             id="longitude"
             formControlName="longitude"
             class="form-control"
+            [value]="longitude"
           />
         </div>
 
@@ -98,6 +100,10 @@ import { CustomPoint } from './custom-point.model';
 })
 export class Q2Component {
   @Input() formTitle: string = 'Locator';
+
+  @Input() lattitude: number = 0.0;
+  @Input() longitude: number = 0.0;
+
   @Output() locate: EventEmitter<CustomPoint> = new EventEmitter<CustomPoint>();
 
   locationForm = new FormGroup({

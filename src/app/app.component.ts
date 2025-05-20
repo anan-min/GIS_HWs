@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Q3Component } from '../components/q3/q3.component';
+import { Q4Component } from '../components/q4/q4.component';
 
 @Component({
   selector: 'app-root',
-  imports: [Q3Component],
-  template: ` <app-q3></app-q3> `,
+  imports: [Q4Component],
+  template: ` <app-q4></app-q4> `,
   styleUrl: './app.component.css',
 })
 export class AppComponent {
