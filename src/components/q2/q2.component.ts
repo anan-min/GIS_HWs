@@ -107,8 +107,8 @@ export class Q2Component {
   @Output() locate: EventEmitter<CustomPoint> = new EventEmitter<CustomPoint>();
 
   locationForm = new FormGroup({
-    longitude: new FormControl(0.0, [Validators.required]),
-    latitude: new FormControl(0.0, [Validators.required]),
+    longitude: new FormControl(this.lattitude, [Validators.required]),
+    latitude: new FormControl(this.longitude, [Validators.required]),
   });
 
   onSubmit(): void {
