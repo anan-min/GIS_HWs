@@ -18,7 +18,7 @@ import MapView from '@arcgis/core/views/MapView';
       .map-container {
         display: flex;
         height: 100vh; /* Full height of the viewport */
-        width: 100%;P
+        width: 100%;
       }
 
       #mapViewDiv {

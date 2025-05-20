@@ -2,6 +2,9 @@ import { Component, AfterViewInit } from '@angular/core';
 import { Q2Component } from '../q2/q2.component'; // Ensure Q2Component is correctly imported
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
+import MapImageLayer from '@arcgis/core/layers/MapImageLayer';
+
+
 
 @Component({
   imports: [Q2Component],
@@ -58,6 +61,11 @@ export class Q4Component implements AfterViewInit {
     const map = new Map({
       basemap: 'streets-navigation-vector', // Use your preferred basemap
     });
+
+    const censusLayer = new MapImageLayer({
+      url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer',
+    });
+    map.add(censusLayer);
 
     this.mapView = new MapView({
       container: 'mapViewDiv', // The ID of the div where the map will be displayed
