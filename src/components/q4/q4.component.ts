@@ -6,6 +6,7 @@ import MapImageLayer from '@arcgis/core/layers/MapImageLayer';
 
 
 
+
 @Component({
   imports: [Q2Component],
   selector: 'app-q4',
@@ -70,8 +71,8 @@ export class Q4Component implements AfterViewInit {
     this.mapView = new MapView({
       container: 'mapViewDiv', // The ID of the div where the map will be displayed
       map: map,
-      center: [-118.805, 34.027], // Default center (longitude, latitude)
-      zoom: 13, // Default zoom level
+      center: [-98.35, 39.5],
+      zoom: 5,
     });
 
     this.mapView.on('click', (event) => {
