@@ -3,10 +3,11 @@ import { Q2Component } from '../q2/q2.component';
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import MapImageLayer from '@arcgis/core/layers/MapImageLayer';
-
+import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import IdentifyParameters from '@arcgis/core/rest/support/IdentifyParameters';
 import * as identify from '@arcgis/core/rest/identify';
 import Graphic from '@arcgis/core/Graphic';
+import PopupTemplate from '@arcgis/core/PopupTemplate';
 
 @Component({
   imports: [Q2Component],
@@ -63,10 +64,37 @@ export class Q4Component implements AfterViewInit {
       basemap: 'streets-navigation-vector',
     });
 
+    // Define the PopupTemplate for the FeatureLayer
+    const template = new PopupTemplate({
+      title: '{STATE_NAME}',
+      content: [
+        {
+          type: 'fields',
+          fieldInfos: [
+            {
+              fieldName: 'POP2008',
+              label: 'Population',
+            },
+            {
+              fieldName: 'Shape_Area',
+              label: 'Area',
+            },
+          ],
+        },
+      ],
+    });
+
+    const featureLayer = new FeatureLayer({
+      url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3',
+      popupTemplate: template, // Set the popupTemplate for the FeatureLayer
+    });
+
     const censusLayer = new MapImageLayer({
       url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer',
     });
+
     map.add(censusLayer);
+    map.add(featureLayer);
 
     this.mapView = new MapView({
       container: 'mapViewDiv',
@@ -76,7 +104,7 @@ export class Q4Component implements AfterViewInit {
     });
 
     this.identifyParams = new IdentifyParameters();
-    this.identifyParams.layerIds = [3];
+    this.identifyParams.layerIds = [3]; 
     this.identifyParams.layerOption = 'top';
     this.identifyParams.tolerance = 3;
     this.identifyParams.returnGeometry = true;
@@ -86,14 +114,12 @@ export class Q4Component implements AfterViewInit {
     this.mapView.when(() => {
       console.log('Map view is ready!');
 
-      // Listen for click events on the map
       this.mapView.on('click', (event) => {
         this.handleMapClick(event);
       });
     });
   }
 
-  // Handle location input from Q2Component and update map center
   onLocate(customPoint: any): void {
     if (this.mapView) {
       this.mapView.goTo({
@@ -112,13 +138,11 @@ export class Q4Component implements AfterViewInit {
     this.latitude = latitude;
     this.longitude = longitude;
 
-    this.mapView.graphics.removeAll();
+    this.mapView.graphics.removeAll(); // Clear any existing graphics
     this.identifyParams.geometry = clickedPoint;
     this.identifyParams.mapExtent = this.mapView.extent;
 
-    console.log(
-      `You clicked at: Latitude = ${latitude}, Longitude = ${longitude}`
-    );
+    console.log(`You clicked at: Latitude = ${latitude}, Longitude = ${longitude}`);
 
     identify
       .identify(
@@ -126,54 +150,46 @@ export class Q4Component implements AfterViewInit {
         this.identifyParams
       )
       .then((response) => {
-        const result = response.results[0]; // Get the first result (state)
+        const result = response.results[0]; 
         if (result) {
           const geometry = result.feature.geometry;
-          const polygon = geometry.clone();
+          const polygon = geometry.clone(); 
 
           const polygonGraphic = new Graphic({
             geometry: polygon,
             symbol: {
-              type: 'simple-fill',
-              color: [0, 0, 255, 0.3],
+              type: 'simple-fill', 
+              color: [0, 0, 255, 0.3], 
               outline: {
-                color: [0, 0, 255],
+                color: [0, 0, 255], 
                 width: 1,
               },
             },
           });
 
-          this.mapView.graphics.add(polygonGraphic);
+          this.mapView.graphics.add(polygonGraphic); 
 
-          result.feature.popupTemplate = {
-            title: `State: ${result.feature.attributes['STATE_NAME']}`,
+          // pop up still not working
+          const popupTemplate = new PopupTemplate({
+            title: `${result.feature.attributes['STATE_NAME']}`,
             content: `
-            <b>Population:</b> ${result.feature.attributes['POP2007']} <br>
-
+            <b>Population:</b> ${result.feature.attributes['POP2008']} <br>
             <b>Area:</b> ${result.feature.attributes['Shape_Area']} square units
           `,
-          };
+          });
+          result.feature.popupTemplate = popupTemplate;
+          if (this.mapView.popup) {
+            this.mapView.popup.open({
+              features: [result.feature],
+              location: clickedPoint, 
+            });
+          }
 
-          this.showPopup([result.feature], clickedPoint);
+
         }
       })
       .catch((error) => {
         console.error('Error during Identify task:', error);
       });
-  }
-
-  // Method to show the popup
-  showPopup(response: any, eventMapPoint: any): void {
-    if (response.length > 0 && this.mapView.popup) {
-      this.mapView.popup.open({
-        features: response,
-        location: eventMapPoint, 
-      });
-    }
-
-    const viewDiv = document.getElementById('viewDiv');
-    if (viewDiv) {
-      viewDiv.style.cursor = 'auto'; 
-    }
   }
 }
