@@ -62,8 +62,6 @@ export class Q3Component implements AfterViewInit {
   // Handle location input from Q2Component and update map center
   onLocate(customPoint: any): void {
     if (this.mapView) {
-      // this.mapView.center = [customPoint.longitude, customPoint.latitude]; // Center map on input location
-      // this.mapView.zoom = 13; // Adjust zoom level if necessary
       this.mapView.goTo({
         center: [customPoint.longitude, customPoint.latitude],
         zoom: 13,
