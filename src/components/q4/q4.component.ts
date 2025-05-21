@@ -8,7 +8,7 @@ import IdentifyParameters from '@arcgis/core/rest/support/IdentifyParameters';
 import * as identify from '@arcgis/core/rest/identify';
 import Graphic from '@arcgis/core/Graphic';
 import PopupTemplate from '@arcgis/core/PopupTemplate';
-import Popup from '@arcgis/core/widgets/Popup';
+import { CustomPoint } from '../q2/custom-point.model';
 
 @Component({
   imports: [Q2Component],
@@ -45,6 +45,7 @@ import Popup from '@arcgis/core/widgets/Popup';
         position: absolute;
         top: 20px;
         right: 20px;
+        z-index: 10;
       }
     `,
   ],
@@ -121,14 +122,23 @@ export class Q4Component implements AfterViewInit {
     });
   }
 
-  onLocate(customPoint: any): void {
-    if (this.mapView) {
-      this.mapView.goTo({
-        center: [customPoint.longitude, customPoint.latitude],
-        zoom: 13,
-      });
-      console.log('Map centered at:', customPoint);
-    }
+  onLocate(customPoint: CustomPoint): void {
+    this.latitude = customPoint.latitude;
+    this.longitude = customPoint.longitude;
+    console.log('Updated Latitude:', this.latitude);
+    console.log('Updated Longitude:', this.longitude);
+
+    // event emitter works fine
+
+    // Make sure to set the mapView center properly
+    this.mapView
+      .goTo({
+        center: [this.longitude, this.latitude],
+        zoom: 6,
+      })
+      .catch((error) =>
+        console.error('Error when moving the map view:', error)
+      );
   }
 
   handleMapClick(event: any): void {

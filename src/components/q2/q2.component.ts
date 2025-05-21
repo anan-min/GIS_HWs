@@ -17,7 +17,6 @@ import { CustomPoint } from './custom-point.model';
             id="latitude"
             formControlName="latitude"
             class="form-control"
-            [value]="lattitude"
           />
         </div>
 
@@ -28,7 +27,6 @@ import { CustomPoint } from './custom-point.model';
             id="longitude"
             formControlName="longitude"
             class="form-control"
-            [value]="longitude"
           />
         </div>
 
@@ -39,12 +37,12 @@ import { CustomPoint } from './custom-point.model';
   styles: [
     `
       .container {
-        max-width: 300px; /* Reduced the max width to 300px */
+        max-width: 300px;
         margin: 0 auto;
         padding: 20px;
         font-family: Arial, sans-serif;
-        border: 1px solid #d3d3d3; /* Light grey border */
-        border-radius: 8px; /* Rounded corners */
+        border: 1px solid #d3d3d3;
+        border-radius: 8px;
         background-color: #f9f9f9;
       }
 
@@ -65,11 +63,10 @@ import { CustomPoint } from './custom-point.model';
 
       .form-control {
         width: 100%;
-        padding: 10px; /* Ensure proper padding inside the input boxes */
+        padding: 10px;
         margin: 5px 0;
         border: 1px solid #ccc;
         border-radius: 4px;
-        box-sizing: border-box; /* Ensures padding doesn't affect the width */
       }
 
       .btn {
@@ -107,15 +104,22 @@ export class Q2Component {
   @Output() locate: EventEmitter<CustomPoint> = new EventEmitter<CustomPoint>();
 
   locationForm = new FormGroup({
-    longitude: new FormControl(this.lattitude, [Validators.required]),
-    latitude: new FormControl(this.longitude, [Validators.required]),
+    longitude: new FormControl(this.longitude, [Validators.required]), // Correct the order here
+    latitude: new FormControl(this.lattitude, [Validators.required]), // Correct the order here
   });
+
+  ngOnChanges(): void {
+    // Reset the form values when latitude/longitude inputs change
+    this.locationForm.patchValue({
+      latitude: this.lattitude,
+      longitude: this.longitude,
+    });
+  }
 
   onSubmit(): void {
     if (this.locationForm.valid) {
       const formData = this.locationForm.value;
       console.log('Form Data:', formData);
-      // Add your logic to handle the form submission
 
       const customPoint = new CustomPoint(
         formData.latitude ? Number(formData.latitude) : 0.0,

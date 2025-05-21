@@ -1,5 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { Q2Component } from '../q2/q2.component'; // Ensure Q2Component is correctly imported
+import { Q2Component } from '../q2/q2.component';
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 
@@ -34,12 +34,6 @@ import MapView from '@arcgis/core/views/MapView';
         top: 20px;
         right: 20px;
         z-index: 10; /* Ensure the form is above the map */
-        background-color: rgba(
-          255,
-          255,
-          255,
-          0.8
-        ); /* Optional: add a background to ensure readability */
       }
     `,
   ],
