@@ -57,6 +57,8 @@ export class Q3Component implements AfterViewInit {
       center: [-118.805, 34.027], // Default center (longitude, latitude)
       zoom: 13, // Default zoom level
     });
+    this.mapView.ui.add('locate', 'top-left');
+    this.mapView.ui.add('zoom', 'top-left');
   }
 
   // Handle location input from Q2Component and update map center
