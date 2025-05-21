@@ -86,5 +86,13 @@ export class I5Component implements AfterViewInit {
       view: mapView,
     });
     mapView.ui.add(layerList, 'top-right');
+
+    mapView.when(() => {
+      console.log('Map loaded');
+      mapView.goTo({
+        target: [-118.805, 34.027], 
+        zoom: 6, 
+      });
+    });
   }
 }
