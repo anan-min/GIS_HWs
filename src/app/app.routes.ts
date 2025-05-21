@@ -5,7 +5,7 @@ import { Q4Component } from '../components/q4/q4.component';
 import { I1Component } from '../components/Intermediate/i1/i1.component';
 
 export const routes: Routes = [
-  { path: '', component: I1Component },
+  { path: '', component: Q4Component },
   { path: 'q2', component: Q2Component },
   { path: 'q3', component: Q3Component },
   { path: 'q4', component: Q4Component },

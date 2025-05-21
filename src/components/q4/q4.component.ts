@@ -8,6 +8,7 @@ import IdentifyParameters from '@arcgis/core/rest/support/IdentifyParameters';
 import * as identify from '@arcgis/core/rest/identify';
 import Graphic from '@arcgis/core/Graphic';
 import PopupTemplate from '@arcgis/core/PopupTemplate';
+import Popup from '@arcgis/core/widgets/Popup';
 
 @Component({
   imports: [Q2Component],
@@ -104,7 +105,7 @@ export class Q4Component implements AfterViewInit {
     });
 
     this.identifyParams = new IdentifyParameters();
-    this.identifyParams.layerIds = [3]; 
+    this.identifyParams.layerIds = [3];
     this.identifyParams.layerOption = 'top';
     this.identifyParams.tolerance = 3;
     this.identifyParams.returnGeometry = true;
@@ -142,7 +143,9 @@ export class Q4Component implements AfterViewInit {
     this.identifyParams.geometry = clickedPoint;
     this.identifyParams.mapExtent = this.mapView.extent;
 
-    console.log(`You clicked at: Latitude = ${latitude}, Longitude = ${longitude}`);
+    console.log(
+      `You clicked at: Latitude = ${latitude}, Longitude = ${longitude}`
+    );
 
     identify
       .identify(
@@ -150,42 +153,46 @@ export class Q4Component implements AfterViewInit {
         this.identifyParams
       )
       .then((response) => {
-        const result = response.results[0]; 
+        const result = response.results[0];
         if (result) {
           const geometry = result.feature.geometry;
-          const polygon = geometry.clone(); 
+          const polygon = geometry.clone();
 
           const polygonGraphic = new Graphic({
             geometry: polygon,
             symbol: {
-              type: 'simple-fill', 
-              color: [0, 0, 255, 0.3], 
+              type: 'simple-fill',
+              color: [0, 0, 255, 0.3],
               outline: {
-                color: [0, 0, 255], 
+                color: [0, 0, 255],
                 width: 1,
               },
             },
           });
 
-          this.mapView.graphics.add(polygonGraphic); 
+          this.mapView.graphics.add(polygonGraphic);
 
-          // pop up still not working
-          const popupTemplate = new PopupTemplate({
-            title: `${result.feature.attributes['STATE_NAME']}`,
-            content: `
-            <b>Population:</b> ${result.feature.attributes['POP2008']} <br>
-            <b>Area:</b> ${result.feature.attributes['Shape_Area']} square units
-          `,
-          });
-          result.feature.popupTemplate = popupTemplate;
+          const clickedPoint = event.mapPoint;
+          const stateName = result.feature.attributes['STATE_NAME'];
+          const population = result.feature.attributes['POP2008'];
+          const shapeArea = result.feature.attributes['Shape_Area'];
+
+          const popupContent = `
+          <strong>State Name:</strong> ${stateName}<br>
+          <strong>Population:</strong> ${population}<br>
+          <strong>Area:</strong> ${shapeArea} sq. meters<br>
+          <strong>Latitude:</strong> ${latitude}<br>
+          <strong>Longitude:</strong> ${longitude}
+        `;
+
+          // Set the popup content and open it at the clicked location
           if (this.mapView.popup) {
             this.mapView.popup.open({
-              features: [result.feature],
-              location: clickedPoint, 
+              title: stateName, // Title of the popup
+              content: popupContent, // Content for the popup
+              location: clickedPoint, // Set the location where the popup should appear
             });
           }
-
-
         }
       })
       .catch((error) => {
