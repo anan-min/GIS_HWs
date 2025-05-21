@@ -6,6 +6,7 @@ import MapImageLayer from '@arcgis/core/layers/MapImageLayer';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import { AfterViewInit } from '@angular/core';
 import GroupLayer from '@arcgis/core/layers/GroupLayer';
+import TileLayer from '@arcgis/core/layers/TileLayer';
 
 @Component({
   selector: 'app-i5',
@@ -38,7 +39,7 @@ export class I5Component implements AfterViewInit {
   initializeMap(): void {
     const map = new Map({});
 
-    const oceanBaseLayer = new MapImageLayer({
+    const oceanBaseLayer = new TileLayer({
       url: 'https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer',
     });
 
@@ -90,8 +91,8 @@ export class I5Component implements AfterViewInit {
     mapView.when(() => {
       console.log('Map loaded');
       mapView.goTo({
-        target: [-118.805, 34.027], 
-        zoom: 6, 
+        target: [-118.805, 34.027],
+        zoom: 6,
       });
     });
   }

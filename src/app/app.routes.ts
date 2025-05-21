@@ -9,7 +9,7 @@ import { I5Component } from '../components/Intermediate/i5/i5.component';
 import { I6Component } from '../components/Intermediate/i6/i6.component';
 
 export const routes: Routes = [
-  { path: '', component: I4Component },
+  { path: '', component: Q3Component },
   { path: 'q2', component: Q2Component },
   { path: 'q3', component: Q3Component },
   { path: 'q4', component: Q4Component },

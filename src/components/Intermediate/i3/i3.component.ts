@@ -67,6 +67,7 @@ export class I3Component implements AfterViewInit {
       view: mapView,
       layer: graphicsLayer,
       creationMode: "update", 
+      
     });
 
 

@@ -10,29 +10,36 @@ import MapView from '@arcgis/core/views/MapView';
     <div class="map-container">
       <app-q2 (locate)="onLocate($event)" class="form-container"></app-q2>
       <div id="mapViewDiv"></div>
-      <!-- ArcGIS Map container -->
     </div>
   `,
   styles: [
     `
       .map-container {
         display: flex;
-        height: 100vh; /* Full height of the viewport */
+        height: 100vh;
         width: 100%;
+        position: relative; /* Make sure the container has a relative position */
       }
 
       #mapViewDiv {
-        flex: 1; /* Map takes up remaining space */
+        flex: 1;
         height: 100%;
       }
 
       .form-container {
-        width: 300px; /* Fixed width for the form */
+        width: 300px;
         height: 100%;
         padding: 20px;
         position: absolute;
         top: 20px;
         right: 20px;
+        z-index: 10; /* Ensure the form is above the map */
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.8
+        ); /* Optional: add a background to ensure readability */
       }
     `,
   ],

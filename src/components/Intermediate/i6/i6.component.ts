@@ -8,7 +8,7 @@ import { AfterViewInit } from '@angular/core';
 import Swipe from '@arcgis/core/widgets/Swipe';
 
 @Component({
-  selector: 'app-i5',
+  selector: 'app-i6',
   imports: [],
   template: `
     <div class="map-container">
