@@ -38,7 +38,7 @@ export class I6Component implements AfterViewInit {
   initializeMap(): void {
     const map = new Map({});
 
-    const oceanBaseLayer = new MapImageLayer({
+    const oceanBaseLayer = new TileLayer({
       url: 'https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer',
     });
 
