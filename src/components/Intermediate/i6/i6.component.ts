@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import LayerList from '@arcgis/core/widgets/LayerList';
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
-import MapImageLayer from '@arcgis/core/layers/MapImageLayer';
 import TileLayer from '@arcgis/core/layers/TileLayer';
 import { AfterViewInit } from '@angular/core';
 import Swipe from '@arcgis/core/widgets/Swipe';
