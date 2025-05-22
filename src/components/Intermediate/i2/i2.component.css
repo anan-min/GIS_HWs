@@ -20,3 +20,32 @@
   box-sizing: border-box; /* Ensures padding is included in the width */
   height: 100%; /* Full height */
 }
+
+ul {
+  list-style-type: none; /* Removes default bullets */
+  padding: 0; /* Removes default padding */
+  margin: 0; /* Removes default margin */
+}
+
+li {
+  padding: 10px; /* Adds padding for better spacing */
+  cursor: pointer; /* Shows a pointer cursor when hovering */
+  transition: background-color 0.3s ease, font-weight 0.3s ease; /*
+   Smooth transition for background and font weight */
+  user-select: none;
+  cursor: pointer;
+}
+
+li:hover {
+  background-color: #f4f4f4; /* Lighter background on hover */
+}
+
+li.active {
+  background-color: #f0e4d8; /* Highlight color */
+  font-weight: bold;
+  border-radius: 4px; /* Rounded corners for the active item */
+}
+
+li.active:hover {
+  background-color: #e3d0b3; /* Slightly darker highlight on hover */
+}

@@ -3,7 +3,20 @@
     <div id="mapViewDiv"></div>
   </div>
   <div class="side-panel">
-    <!-- Content for the 30% panel -->
-    <p>This is the 30% panel</p>
+    <div *ngIf="closestFacilities.length > 0">
+      <ul>
+        <li
+          *ngFor="let facility of closestFacilities"
+          (click)="highlightRoute(facility)"
+          [class.active]="selectedFacility === facility"
+        >
+          {{ facility.name }} – {{ facility.totalTime | number : "1.1-1" }} mins
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="closestFacilities.length === 0">
+      <p>No facilities found.</p>
+    </div>
   </div>
 </div>
