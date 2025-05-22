@@ -8,6 +8,7 @@ import { I3Component } from '../components/Intermediate/i3/i3.component';
 import { I4Component } from '../components/Intermediate/i4/i4.component';
 import { I5Component } from '../components/Intermediate/i5/i5.component';
 import { I6Component } from '../components/Intermediate/i6/i6.component';
+import { I8Component } from '../components/Intermediate/i8/i8.component';
 
 export const routes: Routes = [
   { path: '', component: I2Component },
@@ -16,8 +17,10 @@ export const routes: Routes = [
   { path: 'q4', component: Q4Component },
 
   { path: 'i1', component: I1Component },
+  { path: 'i2', component: I2Component },
   { path: 'i3', component: I3Component },
-  { path: 'i4', component: I4Component },
+  { path: 'i4', component: I4Component }, // not done
   { path: 'i5', component: I5Component },
   { path: 'i6', component: I6Component },
+  { path: 'i8', component: I8Component }, // not done
 ];
