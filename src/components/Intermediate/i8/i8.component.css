@@ -245,3 +245,9 @@ select {
 .user-list li:hover {
   background-color: #f0f0f0; /* Light grey background on hover */
 }
+
+input.error {
+  border: 1px solid red;
+}
+
+
