@@ -11,105 +11,8 @@ import { CommonModule } from '@angular/common';
 @Component({
   imports: [CommonModule],
   selector: 'app-i1',
-  template: `
-    <div class="container">
-      <div class="map-container">
-        <div id="mapViewDiv"></div>
-      </div>
-
-      <div class="table-container">
-        <table id="stateTable">
-          <thead>
-            <tr>
-              <th>State Name</th>
-              <th>Subregion</th>
-              <th>State Abbreviation</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-            <!-- Loop over states array and create rows dynamically -->
-            <tr
-              *ngFor="let state of states"
-              [ngClass]="{ highlight: isRowHighlighted(state.stateAbbr) }"
-              (click)="onRowClick(state.stateAbbr)"
-            >
-              <td>{{ state.stateName }}</td>
-              <td>{{ state.subregion }}</td>
-              <td>{{ state.stateAbbr }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `,
-  styles: [
-    `
-      /* Highlight row styles */
-      .highlight {
-        background-color: #ff0000;
-        font-weight: bold;
-        color: #ffffff;
-        font-size: 20px;
-        text-align: center;
-        padding: 10px;
-      }
-
-      /* Container that wraps both map and table */
-      .container {
-        display: flex;
-        height: 100vh; /* Ensure full viewport height */
-        width: 100%;
-        overflow: hidden; /* Prevent scrolling issues */
-      }
-
-      /* Map section takes up 50% of the container */
-      .map-container {
-        display: flex;
-        height: 100%;
-        width: 50%; /* 50% width for map */
-        background-color: #f0f0f0; /* Add a subtle background color */
-      }
-
-      #mapViewDiv {
-        width: 100%;
-        height: 100%;
-      }
-
-      /* Table section takes up 50% of the container */
-      .table-container {
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-        max-height: 100%;
-        overflow-y: auto;
-        width: 50%; /* 50% width for table */
-        background-color: #ffffff;
-        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Shadow on the right side */
-        border-left: 2px solid #ddd; /* Border separating the table from the map */
-      }
-
-      /* Style for the table header */
-      #stateTable thead {
-        background-color: #f0f0f0; /* Subtle background color for header */
-        color: #333; /* Darker text color */
-        font-size: 18px; /* Slightly larger font size for the header */
-        font-weight: bold; /* Bold text for header */
-      }
-
-      /* Style for table headers (th) */
-      #stateTable th {
-        padding: 12px 20px; /* Padding for the header cells */
-        text-align: left; /* Align header text to the left */
-        border-bottom: 2px solid #ddd; /* Border at the bottom of header cells */
-        background-color: #e9e9e9; /* Slightly different background for header cells */
-      }
-
-      /* Optional: Add hover effect for the header */
-      #stateTable th:hover {
-        background-color: #d3d3d3; /* Light hover effect for better user interaction */
-      }
-    `,
-  ],
+  templateUrl: './i1.component.html',
+  styleUrls: ['./i1.component.css'],
 })
 export class I1Component implements AfterViewInit {
   private mapView!: MapView;
@@ -301,8 +204,8 @@ export class I1Component implements AfterViewInit {
           this.mapView.graphics.add(polygonGraphic);
 
           this.mapView.goTo({
-            target: geometry?.extent,
-            zoom: 6,
+            target: geometry?.extent?.expand(geometry?.extent ? 1.2 : 1), // Expand only if extent exists
+            zoom: geometry?.extent ? this.mapView.zoom : 6, // Use current zoom or fallback to 6
           });
         }
       })

@@ -12,25 +12,8 @@ import Graphic from '@arcgis/core/Graphic';
 
 @Component({
   selector: 'app-i3',
-  template: `
-    <div class="map-container">
-      <div id="mapViewDiv"></div>
-    </div>
-  `,
-  styles: [
-    `
-      .map-container {
-        display: flex;
-        height: 100vh;
-        width: 100%;
-      }
-
-      #mapViewDiv {
-        flex: 1;
-        height: 100%;
-      }
-    `,
-  ],
+  templateUrl: './i3.component.html',
+  styleUrls: ['./i3.component.css'],
 })
 export class I3Component implements AfterViewInit {
   private objectId: number | null = null;
@@ -105,9 +88,9 @@ export class I3Component implements AfterViewInit {
   queryObjectId(featureLayer: FeatureLayer, geometry: any): void {
     const query = featureLayer.createQuery();
     query.geometry = geometry;
-    query.spatialRelationship = 'intersects'; 
-    query.outFields = ['objectid']; 
-    query.returnGeometry = false; 
+    query.spatialRelationship = 'intersects';
+    query.outFields = ['objectid'];
+    query.returnGeometry = false;
     featureLayer
       .queryFeatures(query)
       .then((response) => {

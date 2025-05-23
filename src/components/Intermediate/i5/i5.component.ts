@@ -11,25 +11,8 @@ import TileLayer from '@arcgis/core/layers/TileLayer';
 @Component({
   selector: 'app-i5',
   imports: [],
-  template: `
-    <div class="map-container">
-      <div id="mapViewDiv"></div>
-    </div>
-  `,
-  styles: [
-    `
-      .map-container {
-        display: flex;
-        height: 100vh; /* Full height of the viewport */
-        width: 100%;
-      }
-
-      #mapViewDiv {
-        flex: 1; /* Map takes up remaining space */
-        height: 100%;
-      }
-    `,
-  ],
+  templateUrl: './i5.component.html',
+  styleUrls: ['./i5.component.css'],
 })
 export class I5Component implements AfterViewInit {
   ngAfterViewInit(): void {

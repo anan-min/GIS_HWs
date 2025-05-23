@@ -1,0 +1,96 @@
+/* Highlight row styles */
+.highlight {
+  background-color: #ff8c00; /* Orange color with a less bright shade */
+  font-weight: bold;
+  color: #ffffff; /* White text */
+  font-size: 20px;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Container that wraps both map and table */
+.container {
+  display: flex;
+  height: 100vh; /* Ensure full viewport height */
+  width: 100%;
+  overflow: hidden; /* Prevent scrolling issues */
+}
+
+/* Map section takes up 50% of the container */
+.map-container {
+  display: flex;
+  height: 100%;
+  width: 50%; /* 50% width for map */
+  background-color: #f0f0f0; /* Add a subtle background color */
+}
+
+#mapViewDiv {
+  width: 100%;
+  height: 100%;
+}
+
+/* Table section takes up 50% of the container */
+.table-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  max-height: 100%;
+  overflow-y: auto;
+  width: 50%; /* 50% width for table */
+  background-color: #ffffff;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Shadow on the right side */
+  border-left: 2px solid #ddd; /* Border separating the table from the map */
+}
+
+/* Style for the table header */
+#stateTable thead {
+  background-color: #f8f8f8; /* Light gray for header */
+  color: #333; /* Darker text color */
+  font-size: 18px; /* Slightly larger font size for the header */
+  font-weight: bold; /* Bold text for header */
+}
+
+/* Style for table headers (th) */
+#stateTable th {
+  padding: 12px 20px; /* Padding for the header cells */
+  text-align: left; /* Align header text to the left */
+  border-bottom: 2px solid #ddd; /* Border at the bottom of header cells */
+  background-color: #fffaf0; /* Off-white background with a slight orange tint */
+  color: #333; /* Darker color for text */
+  user-select: none;
+  cursor: pointer;
+}
+
+/* Optional: Add hover effect for the header */
+#stateTable th:hover {
+  background-color: #ffe4b5; /* Light orange hover effect for better user interaction */
+}
+
+/* Table rows */
+#stateTable tr {
+  background-color: #fff; /* White background for rows */
+  border-bottom: 1px solid #ddd; /* Light border between rows */
+}
+
+/* Table row hover effect */
+#stateTable tr:hover {
+  background-color: #fff0e1; /* Light orange hover effect on rows */
+}
+
+/* Table cells (td) */
+#stateTable td {
+  padding: 12px 20px; /* Padding for table cells */
+  color: #555; /* Slightly lighter text color */
+  border-bottom: 1px solid #ddd; /* Border at the bottom of table cells */
+  user-select: none;
+  cursor: pointer;
+}
+
+/* Active row (highlighted) */
+#stateTable tr.active {
+  background-color: #ff8c00; /* Orange background for active rows */
+  color: white; /* White text for active row */
+  font-weight: bold; /* Bold text for active row */
+  user-select: none;
+  cursor: pointer;
+}

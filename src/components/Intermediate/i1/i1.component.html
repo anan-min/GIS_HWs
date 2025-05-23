@@ -1,1 +1,29 @@
-<p>i1 works!</p>
+<div class="container">
+  <div class="map-container">
+    <div id="mapViewDiv"></div>
+  </div>
+
+  <div class="table-container">
+    <table id="stateTable">
+      <thead>
+        <tr>
+          <th>State Name</th>
+          <th>Subregion</th>
+          <th>State Abbreviation</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <!-- Loop over states array and create rows dynamically -->
+        <tr
+          *ngFor="let state of states"
+          [ngClass]="{ highlight: isRowHighlighted(state.stateAbbr) }"
+          (click)="onRowClick(state.stateAbbr)"
+        >
+          <td>{{ state.stateName }}</td>
+          <td>{{ state.subregion }}</td>
+          <td>{{ state.stateAbbr }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

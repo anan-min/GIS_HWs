@@ -13,42 +13,8 @@ import { CustomPoint } from '../q2/custom-point.model';
 @Component({
   imports: [Q2Component],
   selector: 'app-q4',
-  template: `
-    <div class="map-container">
-      <app-q2
-        (locate)="onLocate($event)"
-        class="form-container"
-        formTitle="Q4 Locator"
-        [lattitude]="latitude"
-        [longitude]="longitude"
-      ></app-q2>
-      <div id="mapViewDiv"></div>
-    </div>
-  `,
-  styles: [
-    `
-      .map-container {
-        display: flex;
-        height: 100vh;
-        width: 100%;
-      }
-
-      #mapViewDiv {
-        flex: 1;
-        height: 100%;
-      }
-
-      .form-container {
-        width: 300px;
-        height: 100%;
-        padding: 20px;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 10;
-      }
-    `,
-  ],
+  templateUrl: './q4.component.html',
+  styleUrls: ['./q4.component.css'],
 })
 export class Q4Component implements AfterViewInit {
   private mapView!: MapView;
@@ -128,13 +94,9 @@ export class Q4Component implements AfterViewInit {
     console.log('Updated Latitude:', this.latitude);
     console.log('Updated Longitude:', this.longitude);
 
-    // event emitter works fine
-
-    // Make sure to set the mapView center properly
     this.mapView
       .goTo({
         center: [this.longitude, this.latitude],
-        zoom: 6,
       })
       .catch((error) =>
         console.error('Error when moving the map view:', error)

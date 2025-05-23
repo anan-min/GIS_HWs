@@ -6,37 +6,8 @@ import MapView from '@arcgis/core/views/MapView';
 @Component({
   imports: [Q2Component],
   selector: 'app-q3',
-  template: `
-    <div class="map-container">
-      <app-q2 (locate)="onLocate($event)" class="form-container"></app-q2>
-      <div id="mapViewDiv"></div>
-    </div>
-  `,
-  styles: [
-    `
-      .map-container {
-        display: flex;
-        height: 100vh;
-        width: 100%;
-        position: relative; /* Make sure the container has a relative position */
-      }
-
-      #mapViewDiv {
-        flex: 1;
-        height: 100%;
-      }
-
-      .form-container {
-        width: 300px;
-        height: 100%;
-        padding: 20px;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 10; /* Ensure the form is above the map */
-      }
-    `,
-  ],
+  templateUrl: './q3.component.html',
+  styleUrls: ['./q3.component.css'],
 })
 export class Q3Component implements AfterViewInit {
   private mapView!: MapView;

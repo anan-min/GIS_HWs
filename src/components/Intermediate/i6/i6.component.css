@@ -1,0 +1,10 @@
+.map-container {
+  display: flex;
+  height: 100vh; /* Full height of the viewport */
+  width: 100%;
+}
+
+#mapViewDiv {
+  flex: 1; /* Map takes up remaining space */
+  height: 100%;
+}

@@ -1,1 +1,10 @@
-<p>q4 works!</p>
+<div class="map-container">
+  <app-q2
+    (locate)="onLocate($event)"
+    class="form-container"
+    formTitle="Q4 Locator"
+    [lattitude]="latitude"
+    [longitude]="longitude"
+  ></app-q2>
+  <div id="mapViewDiv"></div>
+</div>

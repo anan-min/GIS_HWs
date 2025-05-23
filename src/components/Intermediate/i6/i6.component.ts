@@ -8,24 +8,9 @@ import Swipe from '@arcgis/core/widgets/Swipe';
 @Component({
   selector: 'app-i6',
   imports: [],
-  template: `
-    <div class="map-container">
-      <div id="mapViewDiv"></div>
-    </div>
-  `,
-  styles: [
-    `
-      .map-container {
-        display: flex;
-        height: 100vh; /* Full height of the viewport */
-        width: 100%;
-      }
-
-      #mapViewDiv {
-        flex: 1; /* Map takes up remaining space */
-        height: 100%;
-      }
-    `,
+  templateUrl: './i6.component.html',
+  styleUrls: [
+    './i6.component.css'
   ],
 })
 export class I6Component implements AfterViewInit {
