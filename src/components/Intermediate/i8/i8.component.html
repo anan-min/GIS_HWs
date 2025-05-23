@@ -12,7 +12,21 @@
       </div>
       <ul class="user-list">
         <li *ngFor="let user of filteredUsers" (click)="onUserEditClick(user)">
-          {{ user.name }} {{ user.surname }}
+          <!-- Flex container for the icon and text -->
+          <div class="user-item">
+            <!-- Conditionally change background color based on gender -->
+            <i
+              [ngClass]="{
+                'fa-user': true,
+                'icon-blue': user.gender === 'M',
+                'icon-pink': user.gender === 'F'
+              }"
+              class="fa"
+            ></i>
+
+            <!-- Name and surname -->
+            <span class="user-name">{{ user.name }} {{ user.surname }}</span>
+          </div>
         </li>
       </ul>
     </div>

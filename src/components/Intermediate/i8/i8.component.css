@@ -250,4 +250,46 @@ input.error {
   border: 1px solid red;
 }
 
+/* User list container */
+.user-list {
+  padding: 0;
+  list-style-type: none;
+  margin: 0;
+}
 
+/* Flex container for each list item */
+.user-item {
+  display: flex; /* Use flexbox to align the icon and name */
+  align-items: center; /* Vertically center the icon and text */
+  gap: 10px; /* Space between icon and name/surname */
+  padding: 10px; /* Optional: add some padding for each list item */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.fa {
+  font-size: 24px; /* Icon size */
+  padding: 20px; /* Icon padding for circular shape */
+  border-radius: 50%; /* Make it circular */
+  color: white; /* Icon color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px; /* Set fixed width */
+  height: 50px; /* Set fixed height */
+}
+
+/* Gender-based background colors */
+.icon-blue {
+  background-color: rgb(145, 181, 196);
+}
+
+.icon-pink {
+  background-color: pink;
+}
+
+/* Styling for the user name */
+.user-name {
+  padding-left: 20px;
+  font-size: 16px; /* Adjust font size */
+  font-weight: normal; /* Make the name and surname less bold */
+}
