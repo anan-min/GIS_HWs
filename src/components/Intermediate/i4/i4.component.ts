@@ -36,7 +36,7 @@ export class I4Component implements AfterViewInit {
       container: 'mapViewDiv',
       map: map,
       center: [-117.1611, 32.7157],
-      zoom: 10,
+      zoom: 13,
     });
 
     this.mapView.when(() => {
@@ -108,7 +108,38 @@ export class I4Component implements AfterViewInit {
         routeParams
       )
       .then((response) => {
-        console.log(response.routeResults[0].route);
+        this.renderRoutes(response);
+      })
+      .catch((error) => {
+        console.error('Error solving the route:', error);
       });
+  }
+
+  renderRoutes(response: any): void {
+    // Check if the route was found and contains directions and geometry
+    if (response.routeResults && response.routeResults.length > 0) {
+      const routeResult = response.routeResults[0];
+
+      // Get the polyline geometry from the route result
+      const polylineGeometry = routeResult.route.geometry;
+
+      // Create a SimpleLineSymbol to style the route line
+      const lineSymbol = new SimpleLineSymbol({
+        color: [0, 0, 255], // Blue line color
+        width: 4, // Line width
+      });
+
+      // Create a graphic with the polyline geometry and the line symbol
+      const routeGraphic = new Graphic({
+        geometry: polylineGeometry,
+        symbol: lineSymbol,
+      });
+
+      // Add the graphic to the map
+      this.mapView.graphics.add(routeGraphic);
+
+      // Optionally, log the directions if needed
+      console.log('Directions:', routeResult.directions?.features);
+    }
   }
 }
