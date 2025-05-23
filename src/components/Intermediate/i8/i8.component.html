@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div class="form-container">
+  <div class="form-container" [formGroup]="userForm">
     <div class="header">
       <h2>{{ isAddingUser ? "เพิ่มผู้ใช้ใหม่" : "แก้ไขผู้ใช้เดิม" }}</h2>
       <button class="remove-user" (click)="onClearFormClick()">
