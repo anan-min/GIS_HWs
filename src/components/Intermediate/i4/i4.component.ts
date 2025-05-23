@@ -22,6 +22,8 @@ export class I4Component implements AfterViewInit {
   private StartLocation: any = null;
   private locationList: any[] = [];
   private isStart = false;
+  public directions: any[] = [];
+  public highlightedDirection: any = null;
 
   ngAfterViewInit(): void {
     this.initializeMap();
@@ -116,30 +118,57 @@ export class I4Component implements AfterViewInit {
   }
 
   renderRoutes(response: any): void {
-    // Check if the route was found and contains directions and geometry
     if (response.routeResults && response.routeResults.length > 0) {
       const routeResult = response.routeResults[0];
 
-      // Get the polyline geometry from the route result
       const polylineGeometry = routeResult.route.geometry;
 
-      // Create a SimpleLineSymbol to style the route line
       const lineSymbol = new SimpleLineSymbol({
-        color: [0, 0, 255], // Blue line color
-        width: 4, // Line width
+        color: [138, 98, 73, 0.5], // Blue line color
+        width: 2, // Line width
       });
 
-      // Create a graphic with the polyline geometry and the line symbol
       const routeGraphic = new Graphic({
         geometry: polylineGeometry,
         symbol: lineSymbol,
       });
 
-      // Add the graphic to the map
       this.mapView.graphics.add(routeGraphic);
 
-      // Optionally, log the directions if needed
-      console.log('Directions:', routeResult.directions?.features);
+      this.directions = routeResult.directions?.features.map(
+        (direction: any) => {
+          return {
+            text: direction.attributes.text,
+            geometry: direction.geometry,
+          };
+        }
+      );
     }
+  }
+
+  highlightDirection(direction: any): void {
+    this.highlightedDirection = direction;
+
+    this.mapView.graphics.removeMany(
+      this.mapView.graphics.filter((g) => g.attributes?.type === 'highlight')
+    );
+
+    const highlightGraphic = new Graphic({
+      geometry: direction.geometry,
+      symbol: {
+        type: 'simple-line',
+        color: [130, 100, 140, 0.7],
+        width: 5,
+      },
+      attributes: {
+        type: 'highlight',
+      },
+    });
+
+    this.mapView.graphics.add(highlightGraphic);
+    const extent = direction.geometry.extent;
+    const expandFactor =
+      extent.width < 0.01 && extent.height < 0.01 ? 1.1 : 1.2;
+    this.mapView.goTo(extent.expand(expandFactor), { animate: true });
   }
 }

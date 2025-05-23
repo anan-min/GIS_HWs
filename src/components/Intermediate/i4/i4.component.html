@@ -11,7 +11,13 @@
     </div>
     <div class="list-container">
       <ol class="routes">
-        <li>No Location selected</li>
+        <li
+          *ngFor="let direction of directions"
+          (click)="highlightDirection(direction)"
+          [class.active]="highlightedDirection === direction"
+        >
+          {{ direction.text }}
+        </li>
       </ol>
     </div>
   </div>

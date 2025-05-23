@@ -168,7 +168,7 @@ export class I2Component implements AfterViewInit {
       const routeGraphic = new Graphic({
         geometry: route.geometry,
         symbol: new SimpleLineSymbol({
-          color: [138, 98, 73, 0.5],
+          color: [138, 98, 73, 0.7],
           width: 2,
         }),
       });
@@ -198,6 +198,6 @@ export class I2Component implements AfterViewInit {
     this.mapView.graphics.add(highlightGraphic);
 
     const extent = facility.geometry.extent;
-    this.mapView.goTo(extent.expand(1.2)); // add some padding
+    this.mapView.goTo(extent.expand(1.2)); 
   }
 }
