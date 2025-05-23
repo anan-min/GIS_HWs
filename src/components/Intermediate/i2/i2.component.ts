@@ -1,4 +1,4 @@
-import { Attribute, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import { AfterViewInit } from '@angular/core';

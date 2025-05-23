@@ -1,1 +1,18 @@
-<p>i4 works!</p>
+<div class="container">
+  <div class="map-container">
+    <div id="mapViewDiv"></div>
+  </div>
+  <div class="side-panel">
+    <div class="navigation">
+      <button class="start-btn" (click)="handleStartClick()">Start</button>
+      <button class="clear-btn" (click)="handleClearAllClick()">
+        Clear All
+      </button>
+    </div>
+    <div class="list-container">
+      <ol class="routes">
+        <li>No Location selected</li>
+      </ol>
+    </div>
+  </div>
+</div>

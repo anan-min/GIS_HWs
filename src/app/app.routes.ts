@@ -11,7 +11,7 @@ import { I6Component } from '../components/Intermediate/i6/i6.component';
 import { I8Component } from '../components/Intermediate/i8/i8.component';
 
 export const routes: Routes = [
-  { path: '', component: I2Component },
+  { path: '', component: I4Component },
   { path: 'q2', component: Q2Component },
   { path: 'q3', component: Q3Component },
   { path: 'q4', component: Q4Component },
