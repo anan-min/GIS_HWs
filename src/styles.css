@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+/* Remove padding from the router outlet */
+router-outlet {
+  padding: 0;
+  margin: 0;
+  display: block; /* Ensures it takes up available space */
+}
+
+/* Or you can reset all elements globally as well */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Apply border-box globally */
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; /* Inherit box-sizing from html */
+}

@@ -1,1 +1,61 @@
-<p>i8 works!</p>
+<div class="container">
+  <div class="side-panel">
+    <div class="list-container">
+      <div class="search-bar">
+        <input type="text" />
+        <button class="add-user-button" (click)="onAddUserClick()">add</button>
+      </div>
+      <ul class="user-list">
+        <li *ngFor="let user of users" (click)="onUserEditClick(user)">
+          {{ user.name }} {{ user.surname }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <div class="header">
+      <h2>{{ isAddingUser ? "เพิ่มผู้ใช้ใหม่" : "แก้ไขผู้ใช้เดิม" }}</h2>
+      <button class="remove-user" (click)="onClearFormClick()">
+        ลบผู้ใช้งาน
+      </button>
+    </div>
+
+    <div class="form-group">
+      <label for="name">ชื่อ:</label>
+      <input type="text" id="name" formControlName="name" />
+    </div>
+
+    <div class="form-group">
+      <label for="surname">สกุล:</label>
+      <input type="text" id="surname" formControlName="surname" />
+    </div>
+
+    <div class="form-group">
+      <label for="gender">เพศ:</label>
+      <input type="radio" id="male" formControlName="gender" value="M" />
+      <label for="male" class="gender-label"> ชาย </label>
+      <input type="radio" id="female" formControlName="gender" value="F" />
+      <label for="female" class="gender-label"> หญิง </label>
+    </div>
+
+    <div class="form-group">
+      <label for="mobile">เบอร์โทรศัพท์:</label>
+      <input
+        type="tel"
+        id="mobile"
+        formControlName="mobile"
+        placeholder="xxx-xxx-xxxx"
+      />
+    </div>
+
+    <div class="map-container">
+      <div id="mapViewDiv"></div>
+    </div>
+
+    <div class="button-container">
+      <button class="submit-button" (click)="onSaveFormClick()">บันทึก</button>
+      <button class="clear-button" (click)="onClearFormClick()">ล้างค่า</button>
+    </div>
+  </div>
+</div>
